@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 /**
- * 用户实体类
+ * User entity class.
  */
 
 @Data
