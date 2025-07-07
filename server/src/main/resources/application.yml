@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: server
+  datasource:
+    url: jdbc:mysql://localhost:3306/train
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    tomcat:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      platform: mysql
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
