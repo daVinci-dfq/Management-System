@@ -22,10 +22,13 @@ export const sendRequest = async (dataRequest: DataRequest): Promise<DataRespons
   const request: Request = new Request(BASE_URL + dataRequest.url, {
     method: dataRequest.method.toUpperCase(),
     headers: new Headers({
+      "mode": "cors",
       "Content-Type": "application/json",
     }),
     body: dataRequest.body !== undefined ? JSON.stringify(dataRequest.body) : undefined,
   });
+
+  console.log('Sending request to ' + request.url + ' with body: ', dataRequest.body);
 
   await fetch(request)
     .then((response) => {

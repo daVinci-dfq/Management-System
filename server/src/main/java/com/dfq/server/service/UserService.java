@@ -16,7 +16,7 @@ public class UserService {
     User newUser = (User)dataTrans.getData();
     DataTrans response = new DataTrans(200, "注册成功", null);
     try {
-      userRepository.save(newUser);
+      userRepository.saveAndFlush(newUser);
     } catch (Exception e) {
       response = new DataTrans(500, "注册失败", null);
     }

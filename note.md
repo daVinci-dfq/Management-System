@@ -25,3 +25,16 @@
 
 [(21 封私Fetch API 新手入门指南 - 知乎](https://zhuanlan.zhihu.com/p/644596660)
 
+
+
+## Spring Boot
+
+### 请求拦截
+
+[在 Spring Boot 中记录完整的请求体和响应体日志 - spring 中文网](https://springdoc.cn/log-request-response-via-content-caching-warpper/)
+
+
+
+## 处理跨域请求
+
+客户端 `fetch()` 发送请求是设置 `"mode": "cors"` ；服务端的控制器使用 `@CrossOrigin(origins = "*")` 注解。
