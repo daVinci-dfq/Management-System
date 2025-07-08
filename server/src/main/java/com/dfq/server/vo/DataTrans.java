@@ -1,10 +1,9 @@
 package com.dfq.server.vo;
 
-import com.dfq.server.vo.request.DataRequest;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NonNull;
+
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -16,4 +15,8 @@ public class DataTrans {
 
   private Object data;
 
+  public Map getMap() {
+    assert data instanceof Map;
+    return (Map)data;
+  }
 }

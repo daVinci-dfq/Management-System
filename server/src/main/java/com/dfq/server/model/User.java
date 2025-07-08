@@ -21,7 +21,7 @@ public class User {
   private String name;
 
   @NotBlank
-  private Boolean gender;
+  private Integer gender;
 
   @NotBlank
   @Size(min = 11,  max = 11)

@@ -1,4 +1,8 @@
-## NEXT.JS
+# 开发笔记
+
+> :sheep: :cherry_blossom: :house:
+
+## NEXT.JS 纯前端 client
 
 ### App Router
 
@@ -23,18 +27,35 @@
 
 [Fetch API 教程 - 阮一峰的网络日志](https://www.ruanyifeng.com/blog/2020/12/fetch-tutorial.html)
 
-[(21 封私Fetch API 新手入门指南 - 知乎](https://zhuanlan.zhihu.com/p/644596660)
+[Fetch API 新手入门指南 - 知乎](https://zhuanlan.zhihu.com/p/644596660)
 
 
 
-## Spring Boot
+## Spring Boot 后端 server
 
 ### 请求拦截
 
 [在 Spring Boot 中记录完整的请求体和响应体日志 - spring 中文网](https://springdoc.cn/log-request-response-via-content-caching-warpper/)
 
+### JPA 问题解决
 
+- 默认 `spring.jpa.open-in-view=true` ，涉及 OSIV 。
 
-## 处理跨域请求
+  **Open Session in View (OSIV)**: [【Spring JPA总结】Spring Boot JPA配置之spring.jpa.open-in-view - 简书](https://www.jianshu.com/p/c856799a42a4)
+
+  
+
+## 前后端分布连接通信
+
+### 处理跨域请求
 
 客户端 `fetch()` 发送请求是设置 `"mode": "cors"` ；服务端的控制器使用 `@CrossOrigin(origins = "*")` 注解。
+
+### 前后端联调
+
+[【踩坑记录：前后端联调，Required request parameter ‘xxx‘ for method parameter type xxxx is not present 解决方式】-CSDN博客](https://blog.csdn.net/weixin_44126778/article/details/136683383)
+
+前端请求与后端接收要一致，否则会出现接收为 `null` 的烦恼。
+
+
+

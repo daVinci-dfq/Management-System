@@ -14,8 +14,4 @@ public class DataRequest {
     return (Integer)data;
   }
 
-  public Map<String, Object> getMap() {
-    assert data instanceof Map;
-    return (Map<String, Object>)data;
-  }
 }

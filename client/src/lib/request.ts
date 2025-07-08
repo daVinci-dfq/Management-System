@@ -1,9 +1,7 @@
 import { BASE_URL } from "./constant";
 
 export interface DataRequest {
-  method: string;
-  url: string;
-  body?: unknown;
+  data?: unknown;
 };
 
 export interface DataResponse {
@@ -12,23 +10,23 @@ export interface DataResponse {
   body: unknown;
 };
 
-export const sendRequest = async (dataRequest: DataRequest): Promise<DataResponse> => {
+export const sendRequest = async (url: string, method: string, dataRequest: DataRequest): Promise<DataResponse> => {
   const dataResponse: DataResponse = {
     status: 200,
     msg: "OK",
     body: null,
   };
 
-  const request: Request = new Request(BASE_URL + dataRequest.url, {
-    method: dataRequest.method.toUpperCase(),
+  const request: Request = new Request(BASE_URL + url, {
+    method: method.toUpperCase(),
     headers: new Headers({
       "mode": "cors",
       "Content-Type": "application/json",
     }),
-    body: dataRequest.body !== undefined ? JSON.stringify(dataRequest.body) : undefined,
+    body: JSON.stringify(dataRequest),
   });
 
-  console.log('Sending request to ' + request.url + ' with body: ', dataRequest.body);
+  console.log('Sending request to ' + request.url + ' with body: ', dataRequest);
 
   await fetch(request)
     .then((response) => {

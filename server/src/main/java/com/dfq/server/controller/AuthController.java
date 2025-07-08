@@ -20,7 +20,7 @@ public class AuthController {
 
   @PostMapping("/register")
   public DataResponse register(@RequestBody @Valid DataRequest dataRequest) {
-    DataTrans dataTrans = userService.register(new DataTrans(null, null, dataRequest.getMap()));
+    DataTrans dataTrans = userService.register(new DataTrans(null, null, dataRequest.getData()));
     assert dataTrans != null;
     if (dataTrans.getStatus() == 200) {
       return DataResponse.success(dataTrans);
