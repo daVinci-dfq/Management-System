@@ -14,7 +14,8 @@ import { useRouter } from "next/navigation";
 const initialFormState: User = {
   id: "",
   name: "",
-  gender: 0,
+  gender: -1,
+  number: "",
   password: "",
   idCard: ""
 };
@@ -26,15 +27,11 @@ export const RegisterDialog = () => {
   const [name, setName] = useState(initialFormState.name);
   const [gender, setGender] = useState(initialFormState.gender);
   const [IdCard, setIdCard] = useState(initialFormState.idCard);
+  const [number, setNumber] = useState(initialFormState.number);
   const [password0, setPassword0] = useState(initialFormState.password);
   const [password1, setPassword1] = useState(initialFormState.password);
 
   const [error, setError] = useState<UserFromErrors>({});
-
-  // const [isSubmitting, setIsSubmitting] = useState(false);
-  // const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
-  // const [submitMessage, setSubmitMessage] = useState("");
-
 
   const registerUser = async (user: User) : Promise<{status: boolean, message: string}> => {
     const dataRequest: DataRequest = {
@@ -55,10 +52,13 @@ export const RegisterDialog = () => {
 
     if (!name.trim()) userError.name = "Name is required!";
       
-    if (gender === null) userError.gender = "Gender is required!";
+    if (gender == -1) userError.gender = "Gender is required!";
       
     if (!IdCard.trim()) userError.idCard = "ID card is required!";
     else if (!validateIdCard(IdCard)) userError.idCard = "Invalid ID card format!";
+
+    if (!number.trim()) userError.number = "Number is required!";
+    else if (number.length != 11) userError.number = "Number must be 11 characters long!";
 
     if (!password0) userError.password0 = "Password is required!";
     else if (password0.length < 6) userError.password0 = "Password must be at least 6 characters long!";
@@ -78,14 +78,12 @@ export const RegisterDialog = () => {
       console.log("Form validation failed", error);
       return;
     }
-
-    // setIsSubmitting(true);
-    // setSubmitStatus("idle");
     
     const newUser: User = {
       ...initialFormState,
       name: name.trim(),
       gender: Number(gender),
+      number: number.trim(),
       idCard: IdCard.trim(),
       password: password0,
     };
@@ -94,21 +92,13 @@ export const RegisterDialog = () => {
       const response = await registerUser(newUser);
 
       if (response.status) {
-        // setSubmitStatus("success");
-        // setSubmitMessage(response.message || "Registration successful!");
         Router.push("main");
+
       } else {
-        // setSubmitStatus("error");
-        // setSubmitMessage(response.message || "Registration failed!");
         resetForm();
       }
     } catch (error) {
-      // setSubmitStatus("error");
-      // setSubmitMessage("An error occurred while submitting the form.");
       console.error("Error during registration:", error);
-    } finally {
-      console.log("Form submitted", newUser);
-      // setIsSubmitting(false);
     }
   };
 
@@ -116,11 +106,10 @@ export const RegisterDialog = () => {
     setName(initialFormState.name);
     setGender(initialFormState.gender);
     setIdCard(initialFormState.idCard);
+    setNumber(initialFormState.number);
     setPassword0(initialFormState.password);
     setPassword1(initialFormState.password);
     setError({});
-    // setSubmitStatus("idle");
-    // setSubmitMessage("");
   };
   
   return (
@@ -153,28 +142,39 @@ export const RegisterDialog = () => {
             )}
           </LabelInputContainer>
         </div>
-        <LabelInputContainer className="mb-4">
-          <Label htmlFor="idCard">ID card</Label>
-          <Input id="idCard" placeholder="Type your ID card" type="text" onChange={(e) => setIdCard(e.target.value)} />
-          {error.idCard && (
-            <p className="text-red-500 text-xs mt-1">{error.idCard}</p>
-          )}
-        </LabelInputContainer>
-        <LabelInputContainer className="mb-4">
-          <Label htmlFor="password0">Password</Label>
-          <Input id="password0" placeholder="Enter your password" type="password" onChange={(e) => setPassword0(e.target.value)} />
-          {error.password0 && (
-            <p className="text-red-500 text-xs mt-1">{error.password0}</p>
-          )}
-        </LabelInputContainer>
-        <LabelInputContainer className="mb-4">
-          <Label htmlFor="password1">Password</Label>
-          <Input id="password1" placeholder="Enter your password again" type="password" onChange={(e) => setPassword1(e.target.value)} />
-          {error.password1 && (
-            <p className="text-red-500 text-xs mt-1">{error.password1}</p>
-          )}
-        </LabelInputContainer>
-  
+        <div className="mb-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
+          <LabelInputContainer className="mb-4">
+            <Label htmlFor="number">Number</Label>
+            <Input id="number" placeholder="Type your phone number" type="text" onChange={(e) => setNumber(e.target.value)} />
+            {error.number && (
+              <p className="text-red-500 text-xs mt-1">{error.number}</p>
+            )}
+          </LabelInputContainer>
+          <LabelInputContainer className="mb-4">
+            <Label htmlFor="idCard">ID card</Label>
+            <Input id="idCard" placeholder="Type your ID card" type="text" onChange={(e) => setIdCard(e.target.value)} />
+            {error.idCard && (
+              <p className="text-red-500 text-xs mt-1">{error.idCard}</p>
+            )}
+          </LabelInputContainer>
+        </div>
+        <div className="mb-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
+          <LabelInputContainer className="mb-4">
+            <Label htmlFor="password0">Password</Label>
+            <Input id="password0" placeholder="Enter your password" type="password" onChange={(e) => setPassword0(e.target.value)} />
+            {error.password0 && (
+              <p className="text-red-500 text-xs mt-1">{error.password0}</p>
+            )}
+          </LabelInputContainer>
+          <LabelInputContainer className="mb-4">
+          <Label htmlFor="password1">Confrim your Password</Label>
+            <Input id="password1" placeholder="Enter password again" type="password" onChange={(e) => setPassword1(e.target.value)} />
+            {error.password1 && (
+              <p className="text-red-500 text-xs mt-1">{error.password1}</p>
+            )}
+          </LabelInputContainer>
+        </div>
+        
         <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
 
         <button

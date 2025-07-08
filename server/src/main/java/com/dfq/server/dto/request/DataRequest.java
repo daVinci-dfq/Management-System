@@ -1,8 +1,6 @@
-package com.dfq.server.vo.request;
+package com.dfq.server.dto.request;
 
 import lombok.Data;
-
-import java.util.Map;
 
 @Data
 public class DataRequest {

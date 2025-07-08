@@ -1,4 +1,4 @@
-package com.dfq.server.vo.response;
+package com.dfq.server.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

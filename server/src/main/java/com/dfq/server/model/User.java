@@ -1,15 +1,21 @@
 package com.dfq.server.model;
 
+import com.dfq.server.constant.GenderType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 /**
  * User entity class.
  */
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class User {
 
@@ -20,8 +26,9 @@ public class User {
   @NotBlank
   private String name;
 
-  @NotBlank
-  private Integer gender;
+  @NonNull
+  @Enumerated(EnumType.ORDINAL)
+  private GenderType gender;
 
   @NotBlank
   @Size(min = 11,  max = 11)

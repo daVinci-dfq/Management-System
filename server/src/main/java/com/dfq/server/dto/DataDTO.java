@@ -1,4 +1,4 @@
-package com.dfq.server.vo;
+package com.dfq.server.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Data
 @AllArgsConstructor
-public class DataTrans {
+public class DataDTO {
 
   private Integer status;
 

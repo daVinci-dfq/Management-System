@@ -2,6 +2,7 @@ export interface User {
   id: string;
   name: string;
   gender: number; // 0 for male, 1 for female
+  number: string;
   password: string;
   idCard: string;
 }
@@ -21,6 +22,7 @@ export interface Ticket {
 export interface UserFromErrors {
   name?: string
   gender?: string;
+  number?: string;
   idCard?: string;
   password0?: string;
   password1?: string;

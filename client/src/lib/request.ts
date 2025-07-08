@@ -1,7 +1,9 @@
 import { BASE_URL } from "./constant";
 
 export interface DataRequest {
-  data?: unknown;
+  url: string;
+  method: string;
+  body?: unknown;
 };
 
 export interface DataResponse {
@@ -10,20 +12,20 @@ export interface DataResponse {
   body: unknown;
 };
 
-export const sendRequest = async (url: string, method: string, dataRequest: DataRequest): Promise<DataResponse> => {
+export const sendRequest = async (dataRequest: DataRequest): Promise<DataResponse> => {
   const dataResponse: DataResponse = {
     status: 200,
     msg: "OK",
     body: null,
   };
 
-  const request: Request = new Request(BASE_URL + url, {
-    method: method.toUpperCase(),
+  const request: Request = new Request(BASE_URL + dataRequest.url, {
+    method: dataRequest.method.toUpperCase(),
     headers: new Headers({
       "mode": "cors",
       "Content-Type": "application/json",
     }),
-    body: JSON.stringify(dataRequest),
+    body: dataRequest.body === undefined ? null : JSON.stringify(dataRequest.body),
   });
 
   console.log('Sending request to ' + request.url + ' with body: ', dataRequest);

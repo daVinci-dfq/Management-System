@@ -1,8 +1,14 @@
 # 开发笔记
 
 > :sheep: :cherry_blossom: :house:
+>
+> 并没有按照学习的整个过程写成类似指南式的教程笔记，仅仅将开发过程中遇到的问题和主要的学习资源总结成手册。
 
 ## NEXT.JS 纯前端 client
+
+选择 React 的一大原因是因为个人比较喜欢适配 react 的 UI 库，~~记得大一用 Vue 的时候找遍了能用的 UI 库发现他们的设计唐的一批，当然大概率也是因为水平有限~~，主要参考和使用的 UI 库如下：
+
+- [Aceternity ui](https://ui.aceternity.com/)
 
 ### App Router
 

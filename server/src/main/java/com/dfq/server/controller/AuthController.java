@@ -1,9 +1,9 @@
 package com.dfq.server.controller;
 
+import com.dfq.server.dto.UserDTO;
 import com.dfq.server.service.UserService;
-import com.dfq.server.vo.DataTrans;
-import com.dfq.server.vo.request.DataRequest;
-import com.dfq.server.vo.response.DataResponse;
+import com.dfq.server.dto.DataDTO;
+import com.dfq.server.dto.response.DataResponse;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +19,13 @@ public class AuthController {
   UserService userService;
 
   @PostMapping("/register")
-  public DataResponse register(@RequestBody @Valid DataRequest dataRequest) {
-    DataTrans dataTrans = userService.register(new DataTrans(null, null, dataRequest.getData()));
-    assert dataTrans != null;
-    if (dataTrans.getStatus() == 200) {
-      return DataResponse.success(dataTrans);
+  public DataResponse register(@RequestBody @Valid UserDTO userDTO) {
+    DataDTO dataDTO = userService.register(userDTO);
+    assert dataDTO != null;
+    if (dataDTO.getStatus() == 200) {
+      return DataResponse.success(dataDTO);
     } else {
-      return DataResponse.error(dataTrans.getMsg());
+      return DataResponse.error(dataDTO.getMsg());
     }
   }
 
