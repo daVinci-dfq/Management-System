@@ -22,7 +22,7 @@ public class DataResponse {
   }
 
   public static DataResponse error(String msg) {
-    return new DataResponse(500, msg, null);
+    return new DataResponse(400, msg, null);
   }
 
 }

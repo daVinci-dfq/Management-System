@@ -29,4 +29,14 @@ public class AuthController {
     }
   }
 
+  @PostMapping("/login")
+  public DataResponse login(@RequestBody @Valid UserDTO userDTO) {
+    DataDTO dataDTO = userService.login(userDTO);
+    assert dataDTO != null;
+    if (dataDTO.getStatus() == 200) {
+      return DataResponse.success(dataDTO);
+    } else {
+      return DataResponse.error(dataDTO.getMsg());
+    }
+  }
 }

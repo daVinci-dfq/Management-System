@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 
+import { toast, Toaster } from "sonner";
+
 import { cn, validateIdCard } from "@/lib/utils";
 import { User, UserFromErrors } from "@/lib/models";
 import { DataRequest, DataResponse, sendRequest } from "@/lib/request";
@@ -41,8 +43,9 @@ export const RegisterDialog = () => {
     };
   
     const dataResponse: DataResponse = await sendRequest(dataRequest);
+
     return {
-      status: dataResponse.status === 200,
+      status: dataResponse.code == 200,
       message: dataResponse.msg || "Registration successful!",
     }
   };
@@ -92,10 +95,11 @@ export const RegisterDialog = () => {
       const response = await registerUser(newUser);
 
       if (response.status) {
+        toast.success(response.message);
         Router.push("main");
-
       } else {
         resetForm();
+        toast.error(response.message);
       }
     } catch (error) {
       console.error("Error during registration:", error);

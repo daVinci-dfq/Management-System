@@ -7,17 +7,14 @@ export interface DataRequest {
 };
 
 export interface DataResponse {
-  status: number;
+  code: number;
   msg?: string;
   body: unknown;
 };
 
 export const sendRequest = async (dataRequest: DataRequest): Promise<DataResponse> => {
-  const dataResponse: DataResponse = {
-    status: 200,
-    msg: "OK",
-    body: null,
-  };
+
+  let dataResponse: DataResponse = { code: 500, msg: "Server Error", body: null };
 
   const request: Request = new Request(BASE_URL + dataRequest.url, {
     method: dataRequest.method.toUpperCase(),
@@ -32,21 +29,16 @@ export const sendRequest = async (dataRequest: DataRequest): Promise<DataRespons
 
   await fetch(request)
     .then((response) => {
-      dataResponse.status = response.status;
-      dataResponse.msg = response.statusText;
       if (!response.ok)
         throw new Error(`HTTP network error! status: ${response.status}`);
-      else
-        console.log('Send request to ' + request.url);
       return response.json();
     })
     .then((data) => {
-      dataResponse.body = data;
+      dataResponse = data;
     })
     .catch((error) => {
-      console.error("Error: ", error);
+      console.error("Error: ", dataResponse.msg);
       throw error;
     });
-  
   return dataResponse;
 };
